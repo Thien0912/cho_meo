@@ -118,7 +118,7 @@
                                     @foreach ($expenses as $expense)
                                         <tr>
                                             <td>{{ $expense->description }}</td>
-                                            <td>{{ $expense->amount }}</td>
+                                            <td>{{ number_format($expense->amount) }} VND</td>
                                             <td>{{ $expense->date }}</td>
                                             <td>
                                                 <a href="{{ route('admin.expenses.edit', $expense->id) }}" class="btn btn-warning">Edit</a>

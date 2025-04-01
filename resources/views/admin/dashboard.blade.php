@@ -150,7 +150,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Tổng chi tiêu</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">VND</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_format($totalExpenses)}} VND</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>

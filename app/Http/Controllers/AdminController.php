@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
+use App\Models\Expense;
 use App\Models\Post;
 use Illuminate\Support\Facades\Http;
 
@@ -26,6 +27,8 @@ class AdminController extends Controller
         // Tính tổng bài post
         $totalPosts = Post::count();
 
-        return view('admin.dashboard', compact('totalUsers', 'totalIncome', 'totalPosts'));
+        $totalExpenses = Expense::sum('amount');
+
+        return view('admin.dashboard', compact('totalUsers', 'totalIncome', 'totalPosts', 'totalExpenses'));
     }
 }

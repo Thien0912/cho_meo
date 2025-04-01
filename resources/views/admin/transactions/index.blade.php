@@ -109,6 +109,7 @@
                                         <th>ID</th>
                                         <th>Người dùng</th>
                                         <th>Số tiền</th>
+                                        <th>Ngày nạp</th>
                                         <th>Mã giao dịch MoMo</th>
                                         <th>Trạng thái</th>
                                         <th>Hành động</th>
@@ -120,6 +121,7 @@
                                             <td>{{ $transaction->id }}</td>
                                             <td>{{ $transaction->user->name }}</td>
                                             <td>{{ $transaction->amount }} VNĐ</td>
+                                            <td>{{ $transaction->created_at->format('d/m/Y H:i:s') }}</td>
                                             <td>{{ $transaction->momo_transaction_id }}</td>
                                             <td>{{ $transaction->status }}</td>
                                             <td>
