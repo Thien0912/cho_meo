@@ -64,6 +64,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.coin_history') }}">
+                    <i class="fas fa-fw fa-coins"></i>
+                    <span>Quản lý coins</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.posts.index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Bài đăng</span>
@@ -121,12 +127,6 @@
                             <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
                             <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
                         </select>
-                    </div>
-
-                    {{-- Coin --}}
-                    <div class="form-group">
-                        <label for="coins">Coins</label>
-                        <input type="number" id="coins" name="coins" value="{{ $user->coins }}" class="form-control">
                     </div>
 
                     {{-- Status --}}

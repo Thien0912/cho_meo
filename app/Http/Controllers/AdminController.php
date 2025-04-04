@@ -8,7 +8,7 @@ use App\Models\Transaction;
 use App\Models\Expense;
 use App\Models\Post;
 use Illuminate\Support\Facades\Http;
-
+use App\Http\Controllers\Controller;
 class AdminController extends Controller
 {
     public function index()

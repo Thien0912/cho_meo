@@ -13,9 +13,6 @@
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="css/styles.css" rel="stylesheet" />
-<div class="text-center mt-4">
-    <a href="{{ route('deposit.show') }}" class="btn btn-primary btn-lg">Nạp Tiền</a>
-</div>
 
 <header class="masthead">
             <div class="container position-relative">
@@ -24,11 +21,16 @@
                         <div class="text-center text-white">
                             <!-- Page heading-->
                             <h1 class="mb-5">KHÁM PHÁ THẾ GIỚI ĐẦY MÀU SẮC CỦA CÁC GIỐNG CHÓ MÈO ĐỘC ĐÁO!</h1>
+                            <div>
+                                <button class="btn btn-warning btn-lg" onclick="window.location.href='{{ route('chat') }}'">Trải nghiệm ngay!</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
+
+        
         <!-- Image Showcases-->
         <section class="showcase">
             <div class="container-fluid p-0">

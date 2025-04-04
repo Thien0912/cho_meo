@@ -65,6 +65,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.coin_history') }}">
+                    <i class="fas fa-fw fa-coins"></i>
+                    <span>Quản lý coins</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.posts.index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Bài đăng</span>
@@ -102,7 +108,7 @@
 
                         <div class="form-group">
                             <label for="date">Date</label>
-                            <input type="date" name="date" class="form-control" required>
+                            <input type="datetime-local" name="date" class="form-control" required>
                         </div>
 
                         <button type="submit" class="btn btn-success">Save Expense</button>

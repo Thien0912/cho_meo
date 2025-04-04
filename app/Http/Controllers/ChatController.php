@@ -1,53 +1,36 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class ChatController extends Controller
 {
     public function ask(Request $request)
     {
-        $question = $request->query('question', ''); // Lấy câu hỏi từ query string
-
-        // Kiểm tra nếu câu hỏi trống
-        if (empty($question)) {
-            return response()->json(['error' => 'Câu hỏi không được để trống'], 400);
+        // Kiểm tra nếu không có file ảnh
+        if (!$request->hasFile('image')) {
+            return response()->json(['error' => 'Chưa có ảnh'], 400);
         }
 
-        try {
-            $response = Http::timeout(120)->get('http://localhost:8080/chatbot/ask', [
-                'question' => $question,
-            ]);
+        $file = $request->file('image');
 
-            if ($response->successful()) {
-                $data = $response->json();
-                
-                // Lấy số token đã sử dụng từ response của FastAPI
-                $tokensUsed = $data['tokens_used'] ?? 0;
+        // Lưu file vào storage
+        $path = $file->store('uploads', 'public');
 
-                // Lưu số token vào cache (hoặc database nếu cần)
-                $totalTokensUsed = Cache::get('total_tokens_used', 0) + $tokensUsed;
-                Cache::put('total_tokens_used', $totalTokensUsed, now()->addMinutes(60));
+        // Gửi ảnh đến AI để nhận diện
+        $breed = $this->detectCatBreed($path);
 
-                // Trả về dữ liệu từ FastAPI và số token đã sử dụng
-                return response()->json([
-                    'response' => $data['response'],
-                    'tokens_used' => $tokensUsed,
-                    'total_tokens_used' => $totalTokensUsed,  // Trả về tổng số token đã sử dụng
-                ]);
-            } else {
-                return response()->json([
-                    'error' => 'Lỗi khi gọi API FastAPI',
-                    'status_code' => $response->status(),
-                    'message' => $response->body(),
-                ], 500);
-            }
-        } catch (\Exception $e) {
-            // Xử lý các lỗi ngoại lệ nếu có
-            return response()->json(['error' => 'Lỗi kết nối đến FastAPI: ' . $e->getMessage()], 500);
-        }
+        return response()->json([ 
+            'breed' => $breed,
+            'image_url' => asset("storage/$path")
+        ]);
+    }
+
+    // Hàm giả lập AI nhận diện giống mèo
+    private function detectCatBreed($imagePath)
+    {
+        return "Mèo Ba Tư"; // Thay bằng mô hình AI thực tế
     }
 }

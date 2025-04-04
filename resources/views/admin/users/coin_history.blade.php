@@ -19,6 +19,7 @@
         
 <!-- Begin Page Content -->
 
+
 <body id="page-top">
     <div id="wrapper">
 
@@ -85,41 +86,71 @@
 
         </ul>
         <!-- End of Sidebar -->
-        <div class="container-fluid">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column bg-white">
         <br>
-            <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Sửa chi tiêu</h1>
-            </div>
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <form action="{{ route('admin.expenses.update', $expense) }}" method="POST">
-                    @csrf
-                        @method('PUT')
+            <!-- Main Content -->
+            <div id="content">
 
-                        {{-- Description --}}
-                        <div class="form-group">
-                            <label for="description">Mô tả</label>
-                            <textarea name="description" id="description" class="form-control" required>{{ old('description', $expense->description) }}</textarea>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Quản lý coins</h1>
+                        <a href="{{ route('admin.add_coins') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            Cập nhật</a>
+                    </div>
+                    @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Coins</h6>
                         </div>
-
-                        {{-- Amount --}}
-                        <div class="form-group">
-                            <label for="amount">Số tiền</label>
-                            <input type="number" name="amount" id="amount" value="{{ old('amount', $expense->amount) }}" class="form-control" required>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        <th>ID</th>
+                                        <th>Tên người dùng</th>
+                                        <th>Email</th>
+                                        <th>Thay đổi Coins</th>
+                                        <th>Lý do</th>
+                                        <th>Thời gian</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                    @foreach($coinHistory as $history)
+                                        <tr>
+                                            <td>{{ $history->user_id }}</td>
+                                            <td>{{ $history->name }}</td>
+                                            <td>{{ $history->email }}</td>
+                                            <td style="color: {{ $history->coins_change >= 0 ? 'green' : 'red' }}">
+                                                {{ $history->coins_change }}
+                                            </td>
+                                            <td>{{ $history->reason }}</td>
+                                            <td>{{ $history->created_at }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
+                    </div>
 
-                        {{-- Date --}}
-                        <div class="form-group">
-                            <label for="date">Ngày</label>
-                            <input type="datetime-local" name="date" id="date" value="{{ old('date', \Carbon\Carbon::parse($expense->date)->format('Y-m-d')) }}" class="form-control" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-success mt-3">Cập nhật</button>
-                    </form>
                 </div>
+                <!-- End Page Content -->
+
             </div>
-        </div> <!-- Đóng thẻ div #wrapper -->
+            <!-- End Main Content -->
+
+        </div>
+        <!-- End Content Wrapper -->
+        
     </div>
-</body> <!-- Đóng thẻ body -->
+    <!-- End Wrapper -->
+</body>
 @endsection

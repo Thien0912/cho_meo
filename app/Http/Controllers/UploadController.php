@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Upload;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
 class UploadController extends Controller
 {
     public function index()

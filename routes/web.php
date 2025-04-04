@@ -12,6 +12,7 @@ use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\CoinController;
 
 Auth::routes();
 
@@ -29,6 +30,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('posts', PostController::class);
     Route::resource('uploads', UploadController::class);
     Route::resource('expenses', ExpenseController::class);
+    Route::get('/coin-history', [CoinController::class, 'showCoinHistory'])->name('coin_history');
+    Route::get('/add-coins', [CoinController::class, 'addCoinsForm'])->name('add_coins');
+    Route::post('/add-coins', [CoinController::class, 'processAddCoins'])->name('process_add_coins');
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
     Route::post('/transactions/{id}/approve', [TransactionController::class, 'approve'])->name('transactions.approve');
     Route::post('/transactions/{id}/reject', [TransactionController::class, 'reject'])->name('transactions.reject');
@@ -36,11 +40,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::get('/visitors', [VisitorController::class, 'getVisitors']);
 
-Route::get('/chat/ask', [ChatController::class, 'ask']);
-
-Route::get('/chat', function () {
-    return view('chat');
-});
-
 Route::get('/deposit', [TransactionController::class, 'showDepositForm'])->name('deposit.show');
 Route::post('/deposit', [TransactionController::class, 'store'])->name('deposit.store');
+
+// Giao diện tải ảnh lên
+Route::get('/chat', function () {
+    return view('chat');
+})->name('chat');
+
+// API xử lý ảnh upload
+Route::post('/chatbot/ask', [ChatController::class, 'ask'])->name('chat.ask');

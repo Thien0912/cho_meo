@@ -1,34 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Chatbot</h1>
-    <div id="chat-box" style="border:1px solid #ccc; height:300px; overflow:auto; padding:10px;">
-        <!-- Tin nhắn sẽ hiển thị ở đây -->
-    </div>
-    <div class="mt-3">
-        <input type="text" id="question" class="form-control" placeholder="Nhập câu hỏi...">
-        <button id="send-btn" class="btn btn-primary mt-2">Gửi</button>
-    </div>
-</div>
-@endsection
-
-@push('scripts')
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('send-btn').addEventListener('click', function() {
-        let question = document.getElementById('question').value;
-        if (!question) return;
+    <div class="container mt-5">
+        <!-- Nút trở về -->
+        <div class="row mb-3">
+            <div class="col-12 text-left">
+                <a href="{{ url('/') }}" class="btn btn-secondary">Trở về trang chủ</a>
+            </div>
+        </div>
         
-        fetch("{{ url('/chat/ask') }}?question=" + encodeURIComponent(question))
-            .then(response => response.json())
-            .then(data => {
-                let chatBox = document.getElementById('chat-box');
-                chatBox.innerHTML += '<div><strong>Chatbot:</strong> ' + data.chat_response + '</div>';
-                chatBox.scrollTop = chatBox.scrollHeight;
-            })
-            .catch(error => console.error('Error:', error));
-    });
-});
-</script>
-@endpush
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Card để bọc nội dung -->
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <!-- Tiêu đề và mô tả -->
+                        <h1 class="text-primary text-center">Tải ảnh chó/mèo lên để nhận diện</h1>
+                        
+                        <!-- Button tải ảnh lên -->
+                        <div class="upload-container text-center mb-4">
+                            <button class="btn btn-primary btn-lg" onclick="document.getElementById('upload').click();">Chọn ảnh</button>
+                            <input type="file" id="upload" accept="image/*" class="form-control-file" style="display: none;" onchange="showImage(this)">
+                        </div>
+                        
+                        <!-- Kết quả nhận diện (sẽ hiển thị ngay sau khi ảnh được chọn) -->
+                        <div class="result-container text-center" id="result-container">
+                            <h3 class="text-success">Giống mèo nhận diện:</h3>
+                            <!-- Hình minh họa đẹp hơn thay thế placeholder -->
+                            <img id="uploaded-image" 
+                                src="{{ asset('assets/img/dog-and-cat-simple-icon-illustration-material.png') }}" 
+                                alt="Uploaded Image" 
+                                class="img-fluid mb-3" 
+                                style="width: 100%; max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+                            <p id="cat-breed-result" class="text-info h5">Vui lòng chọn ảnh để nhận diện giống chó/mèo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <!-- Gọi script từ public/js -->
+    <script src="{{ asset('js/scripts.js') }}"></script>
+    <script>
+        function showImage(input) {
+            // Kiểm tra nếu có file được chọn
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                // Hiển thị ảnh đã chọn lên trang
+                reader.onload = function (e) {
+                    document.getElementById('uploaded-image').src = e.target.result;
+                    document.getElementById('cat-breed-result').textContent = "Đang nhận diện giống chó/mèo..."; // Có thể thay đổi thông báo ở đây
+                };
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+@endsection

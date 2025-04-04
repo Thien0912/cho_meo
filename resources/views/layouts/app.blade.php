@@ -28,7 +28,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        <!-- Add your additional navbar links here -->
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('deposit.show') }}">
+                                    Coins: {{ $totalCoins }}
+                                </a>
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -47,6 +54,8 @@
                                 </li>
                             @endif
                         @else
+                            <!-- Hiển thị tổng số coins của người dùng -->
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Welcome: {{ Auth::user()->name }}

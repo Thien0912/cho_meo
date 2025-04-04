@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\User;
-
+use App\Http\Controllers\Controller;
 class TransactionController extends Controller
 {
     // Hiển thị form nạp tiền

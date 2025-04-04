@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -63,11 +63,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // Tạo user mới và lưu vào biến $user
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'coins' => 100
         ]);
+
+        // Thêm dữ liệu vào bảng user_coins sau khi user được tạo
+        DB::table('user_coins')->insert([
+            'user_id' => $user->id,
+            'coins_change' => 100,
+            'created_at' => now(),
+            'reason' => 'Tặng người dùng mới'
+        ]);
+
+        return $user;
     }
 }

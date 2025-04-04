@@ -66,6 +66,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.coin_history') }}">
+                    <i class="fas fa-fw fa-coins"></i>
+                    <span>Quản lý coins</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.posts.index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Bài đăng</span>
@@ -108,10 +114,10 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                     <tr>
-                                        <th>Description</th>
-                                        <th>Amount</th>
-                                        <th>Date</th>
-                                        <th>Actions</th>
+                                        <th>Mô tả</th>
+                                        <th>Số tiền</th>
+                                        <th>Ngày</th>
+                                        <th>Hành động</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -119,7 +125,7 @@
                                         <tr>
                                             <td>{{ $expense->description }}</td>
                                             <td>{{ number_format($expense->amount) }} VND</td>
-                                            <td>{{ $expense->date }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($expense->date)->format('d/m/Y H:i:s') }}</td>
                                             <td>
                                                 <a href="{{ route('admin.expenses.edit', $expense->id) }}" class="btn btn-warning">Edit</a>
                                                 <form action="{{ route('admin.expenses.destroy', $expense->id) }}" method="POST" style="display:inline;">

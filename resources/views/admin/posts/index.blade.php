@@ -66,6 +66,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.coin_history') }}">
+                    <i class="fas fa-fw fa-coins"></i>
+                    <span>Quản lý coins</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.posts.index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Bài đăng</span>
@@ -109,9 +115,9 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Title</th>
-                                        <th>Created At</th>
-                                        <th>Actions</th>
+                                        <th>Tiêu đề</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Hành động</th>
                                     </tr>
                                     </thead>
                                     <tfoot>

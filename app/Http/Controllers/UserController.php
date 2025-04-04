@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,7 +29,6 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
             'role' => 'required|string',
-            'coins' => 'required|integer|min:0',
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
             'status' => 'required|boolean',
@@ -40,7 +39,6 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => $request->role,
-            'coins' => $request->coins,
             'phone' => $request->phone,
             'address' => $request->address,
             'status' => $request->status,
@@ -60,7 +58,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'role' => 'required|string',
-            'coins' => 'required|integer|min:0',
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
             'status' => 'required|boolean',
@@ -70,7 +67,6 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
-            'coins' => $request->coins,
             'phone' => $request->phone,
             'address' => $request->address,
             'status' => $request->status,

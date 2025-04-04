@@ -66,6 +66,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.coin_history') }}">
+                    <i class="fas fa-fw fa-coins"></i>
+                    <span>Quản lý coins</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.posts.index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Bài đăng</span>
@@ -109,14 +115,13 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
+                                            <th>Tên</th>
                                             <th>Email</th>
-                                            <th>Address</th>
-                                            <th>Phone</th>
-                                            <th>Role</th>
-                                            <th>Status</th>
-                                            <th>Coin</th>
-                                            <th>Actions</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Vai trò</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -135,7 +140,6 @@
                                                     <span class="badge bg-danger">Blocked</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $user->coins ?? 0 }}</td> {{-- Hiển thị số Coin --}}
                                             <td>
                                                 {{-- Nút sửa --}}
                                                 <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-warning">Edit</a>

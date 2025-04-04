@@ -65,6 +65,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.coin_history') }}">
+                    <i class="fas fa-fw fa-coins"></i>
+                    <span>Quản lý coins</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.posts.index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Bài đăng</span>
@@ -142,12 +148,6 @@
                                 <option value="1" selected>Active</option>
                                 <option value="0">Blocked</option>
                             </select>
-                        </div>
-
-                        {{-- Coins --}}
-                        <div class="form-group">
-                            <label for="coins">Coins</label>
-                            <input type="number" id="coins" name="coins" class="form-control" required>
                         </div>
 
                         <button type="submit" class="btn btn-success mt-3">Create</button>

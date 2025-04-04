@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Expense;
 use Illuminate\Http\Request;
@@ -11,6 +11,9 @@ class ExpenseController extends Controller
     // Hiển thị danh sách chi tiêu
     public function index()
     {
+        if (!Auth::check() || Auth::user()->role !== 'admin') {
+            abort(403, 'Unauthorized.');
+        }
         $expenses = Expense::all();
         return view('admin.expenses.index', compact('expenses'));
     }
