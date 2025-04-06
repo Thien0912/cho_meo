@@ -34,7 +34,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -57,7 +57,7 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="{{ route('admin.users.index') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Người dùng</span>
@@ -98,7 +98,7 @@
 
                         {{-- Name --}}
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">Tên</label>
                             <input type="text" id="name" name="name" class="form-control" required>
                         </div>
 
@@ -110,31 +110,31 @@
 
                         {{-- Address --}}
                         <div class="form-group">
-                            <label for="address">Address</label>
+                            <label for="address">Địa chỉ</label>
                             <input type="text" id="address" name="address" class="form-control">
                         </div>
 
                         {{-- Phone --}}
                         <div class="form-group">
-                            <label for="phone">Phone</label>
+                            <label for="phone">Số điện thoại</label>
                             <input type="text" id="phone" name="phone" class="form-control">
                         </div>
 
                         {{-- Password --}}
                         <div class="form-group">
-                            <label for="password">Password</label>
+                            <label for="password">Mật khẩu</label>
                             <input type="password" id="password" name="password" class="form-control" required>
                         </div>
 
                         {{-- Confirm Password --}}
                         <div class="form-group">
-                            <label for="password_confirmation">Confirm Password</label>
+                            <label for="password_confirmation">Xác nhận mật khẩu</label>
                             <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
                         </div>
 
                         {{-- Role --}}
                         <div class="form-group">
-                            <label for="role">Role</label>
+                            <label for="role">Vai trò</label>
                             <select name="role" id="role" class="form-control" required>
                                 <option value="user">User</option>
                                 <option value="admin">Admin</option>
@@ -143,14 +143,14 @@
 
                         {{-- Status --}}
                         <div class="form-group">
-                            <label for="status">Status</label>
+                            <label for="status">Trạng thái</label>
                             <select name="status" id="status" class="form-control" required>
                                 <option value="1" selected>Active</option>
                                 <option value="0">Blocked</option>
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-success mt-3">Create</button>
+                        <button type="submit" class="btn btn-success mt-3">Tạo</button>
                     </form>
                 </div>
             </div>

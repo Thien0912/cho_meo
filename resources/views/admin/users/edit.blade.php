@@ -33,7 +33,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -57,7 +57,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.users.index') }}">
+                <a class="nav-link active" href="{{ route('admin.users.index') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Người dùng</span>
                 </a>
@@ -88,7 +88,7 @@
         <br>
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Thêm người dùng</h1>
+                <h1 class="h3 mb-0 text-gray-800">Sửa người dùng</h1>
             </div>
             <div class="card shadow mb-4">
                 <div class="card-body">
@@ -98,7 +98,7 @@
 
                     {{-- Name --}}
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Tên</label>
                         <input type="text" id="name" name="name" value="{{ $user->name }}" class="form-control" required>
                     </div>
 
@@ -110,19 +110,19 @@
 
                     {{-- Address --}}
                     <div class="form-group">
-                        <label for="address">Address</label>
+                        <label for="address">Địa chỉ</label>
                         <input type="text" id="address" name="address" value="{{ $user->address }}" class="form-control">
                     </div>
 
                     {{-- Phone --}}
                     <div class="form-group">
-                        <label for="phone">Phone</label>
+                        <label for="phone">Số điện thoại</label>
                         <input type="text" id="phone" name="phone" value="{{ $user->phone }}" class="form-control">
                     </div>
 
                     {{-- Role --}}
                     <div class="form-group">
-                        <label for="role">Role</label>
+                        <label for="role">Vai trò</label>
                         <select name="role" id="role" class="form-control" required>
                             <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
                             <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
@@ -131,14 +131,14 @@
 
                     {{-- Status --}}
                     <div class="form-group">
-                        <label for="status">Status</label>
+                        <label for="status">Trạng thái</label>
                         <select name="status" id="status" class="form-control" required>
                             <option value="1" {{ $user->status ? 'selected' : '' }}>Active</option>
                             <option value="0" {{ !$user->status ? 'selected' : '' }}>Blocked</option>
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-success mt-3">Update</button>
+                    <button type="submit" class="btn btn-success mt-3">Cập nhật</button>
                 </form>
 
                 </div>

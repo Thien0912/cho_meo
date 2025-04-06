@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="container mt-5">
         <!-- Nút trở về -->
         <div class="row mb-3">
@@ -25,14 +26,14 @@
                         
                         <!-- Kết quả nhận diện (sẽ hiển thị ngay sau khi ảnh được chọn) -->
                         <div class="result-container text-center" id="result-container">
-                            <h3 class="text-success">Giống mèo nhận diện:</h3>
+                            <h3 class="text-success">Giống nhận diện:</h3>
                             <!-- Hình minh họa đẹp hơn thay thế placeholder -->
                             <img id="uploaded-image" 
                                 src="{{ asset('assets/img/dog-and-cat-simple-icon-illustration-material.png') }}" 
                                 alt="Uploaded Image" 
                                 class="img-fluid mb-3" 
                                 style="width: 100%; max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
-                            <p id="cat-breed-result" class="text-info h5">Vui lòng chọn ảnh để nhận diện giống chó/mèo.</p>
+                            <p id="cat-breed-result" class="text-info h5">Vui lòng chọn ảnh để nhận diện.</p>
                         </div>
                     </div>
                 </div>

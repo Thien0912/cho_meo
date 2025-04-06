@@ -31,7 +31,7 @@ class TransactionController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->back()->with('success', 'Giao dịch đang chờ duyệt.');
+        return redirect()->back()->with('success', 'Thành công, giao dịch đang chờ duyệt.');
     }
 
     // Hiển thị danh sách giao dịch cho admin

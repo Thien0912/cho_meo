@@ -34,7 +34,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -77,7 +77,7 @@
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="{{ route('admin.expenses.index') }}" >
                     <i class="fas fa-fw fa-hand-holding-usd"></i>
                     <span>Chi tiêu</span></a>
@@ -97,21 +97,21 @@
                     @csrf
 
                         <div class="form-group">
-                            <label for="description">Description</label>
+                            <label for="description">Mô tả</label>
                             <input type="text" name="description" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="amount">Amount</label>
+                            <label for="amount">Số tiền</label>
                             <input type="number" name="amount" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="date">Date</label>
+                            <label for="date">Ngày</label>
                             <input type="datetime-local" name="date" class="form-control" required>
                         </div>
 
-                        <button type="submit" class="btn btn-success">Save Expense</button>
+                        <button type="submit" class="btn btn-success">Lưu</button>
                     </form>
                 </div>
             </div>
