@@ -1,0 +1,961 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Tài liệu API",
+        "description": "Tài liệu API cho xác thực, quản lý người dùng, xử lý chat và giao dịch trong ứng dụng Laravel.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/laravel_12_base/public",
+            "description": "Môi trường XAMPP"
+        },
+        {
+            "url": "http://localhost:8000",
+            "description": "Môi trường phát triển với Laravel Artisan"
+        }
+        
+    ],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": ["Xác thực"],
+                "summary": "Đăng nhập người dùng",
+                "description": "Đăng nhập người dùng bằng email và mật khẩu, trả về thông tin người dùng và token xác thực (Sanctum).",
+                "operationId": "1257f11ade1e6ee3a26cfe338badfb8e",
+                "requestBody": {
+                    "description": "Thông tin đăng nhập của người dùng",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["email", "password"],
+                                "properties": {
+                                    "email": {
+                                        "description": "Email người dùng",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "description": "Mật khẩu người dùng",
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Đăng nhập thành công",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Đăng nhập thành công"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "ID người dùng",
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "description": "Tên người dùng",
+                                                    "type": "string",
+                                                    "example": "Nguyễn Văn A"
+                                                },
+                                                "email": {
+                                                    "description": "Email người dùng",
+                                                    "type": "string",
+                                                    "example": "user@example.com"
+                                                },
+                                                "coins": {
+                                                    "description": "Số dư xu",
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            }
+                                        },
+                                        "token": {
+                                            "description": "Token xác thực (Sanctum)",
+                                            "type": "string",
+                                            "example": "1|random_token"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Thông tin đăng nhập không hợp lệ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sai thông tin đăng nhập"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Tài khoản bị khóa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tài khoản đã bị khóa"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": ["Xác thực"],
+                "summary": "Đăng ký người dùng mới",
+                "description": "Đăng ký người dùng mới với tên, email và mật khẩu, tự động tạo số dư xu ban đầu (10 xu) và trả về token xác thực.",
+                "operationId": "f7fb8560722ba1f43f9e570fe9affddb",
+                "requestBody": {
+                    "description": "Thông tin đăng ký của người dùng",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["name", "email", "password"],
+                                "properties": {
+                                    "name": {
+                                        "description": "Tên người dùng",
+                                        "type": "string",
+                                        "example": "Nguyễn Văn A"
+                                    },
+                                    "email": {
+                                        "description": "Email người dùng",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "description": "Mật khẩu (tối thiểu 6 ký tự)",
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Đăng ký thành công",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Đăng ký thành công"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "ID người dùng",
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "description": "Tên người dùng",
+                                                    "type": "string",
+                                                    "example": "Nguyễn Văn A"
+                                                },
+                                                "email": {
+                                                    "description": "Email người dùng",
+                                                    "type": "string",
+                                                    "example": "user@example.com"
+                                                },
+                                                "coins": {
+                                                    "description": "Số dư xu ban đầu",
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            }
+                                        },
+                                        "token": {
+                                            "description": "Token xác thực (Sanctum)",
+                                            "type": "string",
+                                            "example": "1|random_token"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Dữ liệu không hợp lệ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Dữ liệu không hợp lệ"
+                                        },
+                                        "errors": {
+                                            "description": "Chi tiết lỗi",
+                                            "type": "object",
+                                            "example": {
+                                                "email": ["Email đã được sử dụng"]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/google-login": {
+            "post": {
+                "tags": ["Xác thực"],
+                "summary": "Đăng nhập bằng Google",
+                "description": "Đăng nhập hoặc đăng ký người dùng bằng Google OAuth, trả về thông tin người dùng và token xác thực.",
+                "operationId": "73702ae92f8d90c93e45607983a49281",
+                "requestBody": {
+                    "description": "Thông tin đăng nhập Google",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["id_token", "email"],
+                                "properties": {
+                                    "id_token": {
+                                        "description": "Token ID Google",
+                                        "type": "string",
+                                        "example": "google_id_token"
+                                    },
+                                    "email": {
+                                        "description": "Email người dùng",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Đăng nhập Google thành công",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Đăng nhập Google thành công"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "ID người dùng",
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "description": "Tên người dùng",
+                                                    "type": "string",
+                                                    "example": "Nguyễn Văn A"
+                                                },
+                                                "email": {
+                                                    "description": "Email người dùng",
+                                                    "type": "string",
+                                                    "example": "user@example.com"
+                                                },
+                                                "coins": {
+                                                    "description": "Số dư xu",
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            }
+                                        },
+                                        "token": {
+                                            "description": "Token xác thực (Sanctum)",
+                                            "type": "string",
+                                            "example": "1|random_token"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token hoặc email không hợp lệ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Token Google không hợp lệ"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Tài khoản bị khóa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tài khoản đã bị khóa"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Dữ liệu không hợp lệ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Dữ liệu không hợp lệ"
+                                        },
+                                        "errors": {
+                                            "description": "Chi tiết lỗi",
+                                            "type": "object",
+                                            "example": {
+                                                "id_token": ["Token Google không hợp lệ"]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": ["Xác thực"],
+                "summary": "Đăng xuất người dùng",
+                "description": "Thu hồi token xác thực hiện tại của người dùng, đăng xuất khỏi hệ thống.",
+                "operationId": "logoutUser",
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Đăng xuất thành công",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Đăng xuất thành công"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Chưa đăng nhập hoặc token không hợp lệ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bạn cần đăng nhập"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/get-coins": {
+            "get": {
+                "tags": ["Người dùng"],
+                "summary": "Lấy số dư xu của người dùng",
+                "description": "Lấy số dư xu hiện tại của người dùng đã đăng nhập.",
+                "operationId": "70c6f5835feec2fd8ca70a8fd5d907bc",
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy số dư xu thành công",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Lấy số dư xu thành công"
+                                        },
+                                        "coins": {
+                                            "description": "Số dư xu",
+                                            "type": "integer",
+                                            "example": 10
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Chưa đăng nhập hoặc token không hợp lệ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bạn cần đăng nhập"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/{id}": {
+            "get": {
+                "tags": ["Người dùng"],
+                "summary": "Lấy thông tin người dùng",
+                "description": "Lấy thông tin chi tiết của người dùng theo ID (chỉ người dùng đó hoặc admin có quyền truy cập).",
+                "operationId": "0b459f9ee63687a4b29e2eb80bf02013",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID của người dùng",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lấy thông tin người dùng thành công",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Lấy thông tin người dùng thành công"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "ID người dùng",
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "description": "Tên người dùng",
+                                                    "type": "string",
+                                                    "example": "Nguyễn Văn A"
+                                                },
+                                                "email": {
+                                                    "description": "Email người dùng",
+                                                    "type": "string",
+                                                    "example": "user@example.com"
+                                                },
+                                                "phone": {
+                                                    "description": "Số điện thoại",
+                                                    "type": "string",
+                                                    "example": "0123456789",
+                                                    "nullable": true
+                                                },
+                                                "address": {
+                                                    "description": "Địa chỉ",
+                                                    "type": "string",
+                                                    "example": "Hà Nội",
+                                                    "nullable": true
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Không có quyền truy cập",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Không có quyền truy cập"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Người dùng không tồn tại",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Người dùng không tồn tại"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Người dùng"],
+                "summary": "Cập nhật thông tin người dùng",
+                "description": "Cập nhật thông tin người dùng (tên, số điện thoại, địa chỉ) theo ID (chỉ người dùng đó hoặc admin có quyền).",
+                "operationId": "c8bd95df13288498def46dadb6edabf4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID của người dùng",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Thông tin cần cập nhật",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "description": "Tên người dùng",
+                                        "type": "string",
+                                        "example": "Nguyễn Văn A"
+                                    },
+                                    "phone": {
+                                        "description": "Số điện thoại",
+                                        "type": "string",
+                                        "example": "0123456789",
+                                        "nullable": true
+                                    },
+                                    "address": {
+                                        "description": "Địa chỉ",
+                                        "type": "string",
+                                        "example": "Hà Nội",
+                                        "nullable": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cập nhật thông tin thành công",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cập nhật thông tin thành công"
+                                        },
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "description": "ID người dùng",
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "description": "Tên người dùng",
+                                                    "type": "string",
+                                                    "example": "Nguyễn Văn A"
+                                                },
+                                                "email": {
+                                                    "description": "Email người dùng",
+                                                    "type": "string",
+                                                    "example": "user@example.com"
+                                                },
+                                                "phone": {
+                                                    "description": "Số điện thoại",
+                                                    "type": "string",
+                                                    "example": "0123456789",
+                                                    "nullable": true
+                                                },
+                                                "address": {
+                                                    "description": "Địa chỉ",
+                                                    "type": "string",
+                                                    "example": "Hà Nội",
+                                                    "nullable": true
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Không có quyền truy cập",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Không có quyền truy cập"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Người dùng không tồn tại",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Người dùng không tồn tại"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Dữ liệu không hợp lệ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Dữ liệu không hợp lệ"
+                                        },
+                                        "errors": {
+                                            "description": "Chi tiết lỗi",
+                                            "type": "object",
+                                            "example": {
+                                                "name": ["Tên không được để trống"]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chat/upload": {
+            "post": {
+                "tags": ["Chat"],
+                "summary": "Xử lý tải lên ảnh trong chat",
+                "description": "Tải lên ảnh trong hệ thống chat, trừ xu từ số dư người dùng để xử lý ảnh (hỗ trợ định dạng JPEG, PNG).",
+                "operationId": "f13ed43a30f3739dc621360bb33deb1f",
+                "requestBody": {
+                    "description": "Tệp ảnh cần tải lên",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["image"],
+                                "properties": {
+                                    "image": {
+                                        "description": "Tệp ảnh (JPEG, PNG)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Xử lý tải lên thành công",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Xu đã được trừ thành công. Tiến hành xử lý ảnh."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Số dư xu không đủ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "detail": {
+                                            "type": "string",
+                                            "example": "Số dư xu không đủ."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Chưa đăng nhập hoặc token không hợp lệ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "detail": {
+                                            "type": "string",
+                                            "example": "Bạn cần đăng nhập."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Lỗi server",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "detail": {
+                                            "type": "string",
+                                            "example": "Lỗi khi trừ xu: [Thông báo lỗi]"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deposit": {
+            "post": {
+                "tags": ["Giao dịch"],
+                "summary": "Tạo yêu cầu nạp tiền",
+                "description": "Tạo yêu cầu nạp tiền qua Momo để tăng số dư xu, yêu cầu xác thực người dùng.",
+                "operationId": "549aebc4b37d481c6e077b2dae9ea22b",
+                "requestBody": {
+                    "description": "Thông tin giao dịch nạp tiền",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": ["amount", "momo_transaction_id"],
+                                "properties": {
+                                    "amount": {
+                                        "description": "Số tiền nạp (tối thiểu 1000)",
+                                        "type": "number",
+                                        "example": 10000
+                                    },
+                                    "momo_transaction_id": {
+                                        "description": "ID giao dịch Momo (duy nhất)",
+                                        "type": "string",
+                                        "example": "momo_123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Yêu cầu nạp tiền được ghi nhận",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Yêu cầu nạp tiền đã được ghi nhận"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Chưa đăng nhập hoặc token không hợp lệ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bạn cần đăng nhập"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Dữ liệu không hợp lệ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Dữ liệu không hợp lệ"
+                                        },
+                                        "errors": {
+                                            "description": "Chi tiết lỗi",
+                                            "type": "object",
+                                            "example": {
+                                                "amount": ["Số tiền phải lớn hơn hoặc bằng 1000"]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "http",
+                "description": "Sử dụng token Sanctum để xác thực",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Xác thực",
+            "description": "Các API liên quan đến đăng nhập, đăng ký và đăng xuất"
+        },
+        {
+            "name": "Người dùng",
+            "description": "Các API quản lý thông tin và số dư xu của người dùng"
+        },
+        {
+            "name": "Chat",
+            "description": "Các API xử lý ảnh trong hệ thống chat"
+        },
+        {
+            "name": "Giao dịch",
+            "description": "Các API liên quan đến nạp tiền và giao dịch"
+        }
+    ]
+}
