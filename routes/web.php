@@ -40,7 +40,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::match(['get', 'post'], '/page', [PageController::class, 'index'])->name('pages.index');
     Route::resource('posts', PostController::class);
     Route::resource('uploads', UploadController::class);
-    Route::resource('expenses', ExpenseController::class);
     Route::get('/coin-history', [CoinController::class, 'showCoinHistory'])->name('coin_history');
     Route::get('/add-coins', [CoinController::class, 'addCoinsForm'])->name('add_coins');
     Route::post('/add-coins', [CoinController::class, 'processAddCoins'])->name('process_add_coins');
@@ -84,3 +83,7 @@ Route::get('/download-current-apk', function () {
     }
     return redirect()->back()->with('error', 'Failed to download APK: ' . $response->json()['detail'] ?? 'Unknown error');
 })->name('download.apk');
+
+Route::get('/timezone', function () {
+    return now()->toDateTimeString() . ' ' . config('app.timezone');
+});

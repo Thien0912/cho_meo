@@ -21,7 +21,7 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-text mx-1">Trang quản lý</div>
             </a>
 
@@ -80,13 +80,6 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.expenses.index') }}">
-                    <i class="fas fa-fw fa-hand-holding-usd"></i>
-                    <span>Chi tiêu</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.uploads.index') }}">
                     <i class="fas fa-fw fas fa-file"></i>
                     <span>Mô hình</span>
@@ -134,23 +127,23 @@
                         <div class="card-body">
                             <form id="config-form">
                                 <div class="mb-3">
-                                    <label for="KEY_API_GPT" class="form-label">KEY_API_GPT</label>
+                                    <label for="KEY_API_GPT" class="form-label">OpenAI key</label>
                                     <input type="text" class="form-control" id="KEY_API_GPT" name="KEY_API_GPT" value="{{ preg_replace('/^"(.*)"$/', '$1', $config[1] ?? '') }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="GEMINI_API_KEY" class="form-label">GEMINI_API_KEY</label>
+                                    <label for="GEMINI_API_KEY" class="form-label">Gemini key</label>
                                     <input type="text" class="form-control" id="GEMINI_API_KEY" name="GEMINI_API_KEY" value="{{ preg_replace('/^"(.*)"$/', '$1', $config[2] ?? '') }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="OPENAI_LLM" class="form-label">OPENAI_LLM</label>
+                                    <label for="OPENAI_LLM" class="form-label">Mô hình OpenAI</label>
                                     <input type="text" class="form-control" id="OPENAI_LLM" name="OPENAI_LLM" value="{{ preg_replace('/^"(.*)"$/', '$1', $config[4] ?? '') }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="GOOGLE_LLM" class="form-label">GOOGLE_LLM</label>
+                                    <label for="GOOGLE_LLM" class="form-label">Mô hình Gemini</label>
                                     <input type="text" class="form-control" id="GOOGLE_LLM" name="GOOGLE_LLM" value="{{ preg_replace('/^"(.*)"$/', '$1', $config[5] ?? '') }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="SELECTED_LLM" class="form-label">Chọn LLM</label>
+                                    <label for="SELECTED_LLM" class="form-label">Mô hình sử dụng</label>
                                     <select class="form-control" id="SELECTED_LLM" name="SELECTED_LLM">
                                         <option value="openai" {{ ($config[7] ?? '') == 'openai' ? 'selected' : '' }}>OpenAI</option>
                                         <option value="gemini" {{ ($config[7] ?? '') == 'gemini' ? 'selected' : '' }}>Gemini</option>
@@ -171,18 +164,18 @@
                                 <table class="table table-bordered" id="modelTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Key</th>
-                                            <th>Value</th>
+                                            <th width="30%">Cấu hình</th>
+                                            <th width="70%">Giá trị</th>
                                         </tr>
                                     </thead>
                                     <tbody id="config-table">
                                         @php
                                             $fixedKeys = [
-                                                1 => 'KEY_API_GPT',
-                                                2 => 'GEMINI_API_KEY',
-                                                4 => 'OPENAI_LLM',
-                                                5 => 'GOOGLE_LLM',
-                                                7 => 'SELECTED_LLM'
+                                                1 => 'OpenAI key',
+                                                2 => 'Gemini key',
+                                                4 => 'Mô hình OpenAI',
+                                                5 => 'Mô hình Gemini',
+                                                7 => 'Mô hình sử dụng'
                                             ];
                                         @endphp
                                         @foreach ($fixedKeys as $index => $key)

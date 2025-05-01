@@ -30,8 +30,6 @@ class AdminController extends Controller
         // Tính tổng bài post
         $totalPosts = Post::count();
 
-        $totalExpenses = Expense::sum('amount');
-
-        return view('admin.dashboard', compact('totalUsers', 'totalIncome', 'totalPosts', 'totalExpenses', 'totalPendingTransactions'));
+        return view('admin.dashboard', compact('totalUsers', 'totalIncome', 'totalPosts', 'totalPendingTransactions'));
     }
 }
