@@ -61,10 +61,45 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.breeds.index') }}">
+                    <i class="fas fa-fw fa-paw"></i>
+                    <span>Thư viện</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.expenses.index') }}" >
                     <i class="fas fa-fw fa-hand-holding-usd"></i>
                     <span>Chi tiêu</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.uploads.index') }}" >
+                    <i class="fas fa-fw fas fa-file"></i>
+                    <span>Mô hình</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.llm.index') }}">
+                    <i class="fas fa-cog"></i>
+                    <span>Cấu hình LLM</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.pages.index') }}">
+                    <i class="fas fa-tools"></i>
+                    <span>Cấu hình web</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.apk.index') }}">
+                    <i class="fas fa-wrench"></i>
+                    <span>Quản lý APK</span>
+                </a>
+            </li>
+
         </ul>
         <!-- End of Sidebar -->
 

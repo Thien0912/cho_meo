@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\Like;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+
 class PostController extends Controller
 {
     public function index()
@@ -12,13 +14,19 @@ class PostController extends Controller
         if (!Auth::check() || Auth::user()->role !== 'admin') {
             abort(403, 'Unauthorized.');
         }
-        $posts = Post::all(); // Lấy tất cả bài đăng
+        $posts = Post::all();
         return view('admin.posts.index', compact('posts'));
+    }
+
+    public function publicIndex()
+    {
+        $posts = Post::all();
+        return view('post', compact('posts'));
     }
 
     public function create()
     {
-        return view('admin.posts.create'); // Trả về view tạo bài đăng mới
+        return view('admin.posts.create');
     }
 
     public function store(Request $request)
@@ -28,7 +36,6 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
-        // Lưu bài đăng mới
         Post::create($validated);
 
         return redirect()->route('admin.posts.index')
@@ -37,12 +44,12 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return view('admin.posts.show', compact('post')); // Xem chi tiết bài đăng
+        return view('admin.posts.show', compact('post'));
     }
 
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post')); // Form chỉnh sửa bài đăng
+        return view('admin.posts.edit', compact('post'));
     }
 
     public function update(Request $request, Post $post)
@@ -52,7 +59,6 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
-        // Cập nhật bài đăng
         $post->update($validated);
 
         return redirect()->route('admin.posts.index')
@@ -61,9 +67,35 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->delete(); // Xóa bài đăng
+        $post->delete();
 
         return redirect()->route('admin.posts.index')
                          ->with('success', 'Post deleted successfully.');
+    }
+
+    public function toggleLike(Request $request, Post $post)
+    {
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Vui lòng đăng nhập để thích bài viết.'], 401);
+        }
+
+        $user = Auth::user();
+        $existingLike = Like::where('user_id', $user->id)->where('post_id', $post->id)->first();
+
+        if ($existingLike) {
+            $existingLike->delete();
+            $post->decrement('likes');
+            $liked = false;
+        } else {
+            Like::create(['user_id' => $user->id, 'post_id' => $post->id]);
+            $post->increment('likes');
+            $liked = true;
+        }
+
+        return response()->json([
+            'success' => true,
+            'likes' => $post->likes,
+            'liked' => $liked,
+        ], 200);
     }
 }

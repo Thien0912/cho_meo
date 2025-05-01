@@ -9,6 +9,15 @@ class Post extends Model
 {
     use HasFactory;
 
-    // Các trường được phép mass assign
     protected $fillable = ['title', 'content'];
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function likedByUser($userId)
+    {
+        return $this->likes()->where('user_id', $userId)->exists();
+    }
 }

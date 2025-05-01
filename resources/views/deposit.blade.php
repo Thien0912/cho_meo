@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 @if (session('success'))
     <div style="padding: 10px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px; margin-bottom: 15px;">
         ✅ {{ session('success') }}
@@ -13,7 +14,7 @@
     </div>
 @endif
 
-<section style="background-color: #eee;">
+<section>
     <div class="container py-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-8 col-lg-6 col-xl-4">
@@ -25,37 +26,38 @@
                         </div>
 
                         <div class="pt-3">
-                            
-                        <form action="{{ route('deposit.store') }}" method="POST">
-                            @csrf
-                            <div class="d-flex flex-row pb-3 form-group">
-                                <div class="rounded border d-flex w-100 px-3 py-2 align-items-center">
-                                    <div class="d-flex flex-column py-1">
-                                        <p class="mb-1 small text-primary">Số tiền</p>
-                                        <div class="d-flex flex-row align-items-center">
-                                            <input type="number" class="form-control form-control-sm" name="amount" id="numberExample" required min="0"/>
-                                            <h6 class="mb-0 text-primary pe-1 ms-2">VND</h6>
+                            <form action="{{ route('deposit.store') }}" method="POST">
+                                @csrf
+                                <div class="d-flex flex-row pb-3 form-group">
+                                    <div class="rounded border d-flex w-100 px-3 py-2 align-items-center">
+                                        <div class="d-flex flex-column py-1">
+                                            <p class="mb-1 small text-primary">Số tiền (1 coin = 2000 VND)</p>
+                                            <div class="d-flex flex-row align-items-center">
+                                                <input type="number" class="form-control form-control-sm" name="amount" id="numberExample" required min="0"/>
+                                                <h6 class="mb-0 text-primary pe-1 ms-2">VND</h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="d-flex flex-row pb-3 form-group">
-                                <div class="rounded border d-flex w-100 px-3 py-2 align-items-center">
-                                    <div class="d-flex flex-column py-1">
-                                        <p class="mb-1 small text-primary">Mã giao dịch</p>
-                                        <div class="d-flex flex-row align-items-center">
-                                            <input type="text" class="form-control form-control-sm" name="momo_transaction_id" value="{{ $randomTransactionId ?? '' }}" readonly>    
+                                <div class="d-flex flex-row pb-3 form-group">
+                                    <div class="rounded border d-flex w-100 px-3 py-2 align-items-center">
+                                        <div class="d-flex flex-column py-1">
+                                            <p class="mb-1 small text-primary">Mã giao dịch</p>
+                                            <p class="mb-1 small text-primary">(Vui lòng nhập vào nội dung chuyển tiền)</p>
+                                            <div class="d-flex flex-row align-items-center">
+                                                <input type="text" class="form-control form-control-sm" name="momo_transaction_id" value="{{ $randomTransactionId ?? '' }}" readonly>    
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="d-flex justify-content-between align-items-center pb-1">
-                                <a href="/" class="text-muted">Trở về</a>
-                                <button type="submit" class="btn btn-primary btn-lg">Thanh toán</button>
-                            </div>
-                        </form>
+                                <div class="d-flex justify-content-between align-items-center pb-1">
+                                    <a href="{{ url('/') }}" class="text-muted">Trở về</a>
+                                    <button type="submit" class="btn btn-primary btn-lg">Thanh toán</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

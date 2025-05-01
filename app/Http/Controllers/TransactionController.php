@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\UserCoin; // Thêm model UserCoin
 use App\Http\Controllers\Controller;
+
 class TransactionController extends Controller
 {
     // Hiển thị form nạp tiền
@@ -14,7 +16,6 @@ class TransactionController extends Controller
         $randomTransactionId = 'MOMO_' . uniqid(); // Tạo mã giao dịch tự động
         return view('deposit', compact('randomTransactionId'));
     }
-
 
     // Lưu thông tin giao dịch
     public function store(Request $request)
@@ -44,15 +45,24 @@ class TransactionController extends Controller
         return view('admin.transactions.index', compact('transactions'));
     }
 
-
     // Duyệt giao dịch
     public function approve($id)
     {
         $transaction = Transaction::findOrFail($id);
         $transaction->update(['status' => 'approved']);
 
-        // Cộng xu thủ công (Admin sẽ tự nhập số xu cho user)
-        return redirect()->back()->with('success', 'Giao dịch đã được duyệt.');
+        // Tính số coins dựa trên số tiền: 2000 đồng = 1 coin
+        $coins = floor($transaction->amount / 2000);
+
+        // Thêm bản ghi vào bảng user_coins
+        UserCoin::create([
+            'user_id' => $transaction->user_id,
+            'coins_change' => $coins,
+            'reason' => 'nạp tiền',
+            'created_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Giao dịch đã được duyệt và ' . $coins . ' coins đã được cộng.');
     }
 
     // Từ chối giao dịch

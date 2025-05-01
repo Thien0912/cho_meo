@@ -9,5 +9,16 @@ class Page extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content'];
+    // Đảm bảo rằng các trường này có thể được cập nhật
+    protected $fillable = [
+        'title',
+        'facebook_url',
+        'twitter_url',
+        'instagram_url',
+        'about_url',
+        'contact_url',
+        'terms_url',
+        'privacy_url',
+        'favicon'
+    ];
 }

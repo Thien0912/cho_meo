@@ -15,6 +15,7 @@ class UserCoin extends Model
         'user_id',
         'coins_change',
         'reason',
+        'created_at',
     ];
 
     public $timestamps = false;

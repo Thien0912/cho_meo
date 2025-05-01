@@ -1,39 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("/visitors")
+    fetch(VISITOR_URL) // Đảm bảo URL đúng (dùng API của `getTransactions`)
+
         .then(response => response.json())
         .then(data => {
-            let labels = data.map(item => item.date);
-            let counts = data.map(item => item.count);
+            let labels = data.map(item => item.date);  // Ngày giao dịch
+            let income = data.map(item => item.total_income);  // Tổng thu nhập
 
             let ctx = document.getElementById("myAreaChart").getContext("2d");
             new Chart(ctx, {
-                type: 'line',
+                type: 'line', // Loại biểu đồ: Line Chart
                 data: {
-                    labels: labels,
+                    labels: labels,  // Ngày giao dịch
                     datasets: [{
-                        // Bỏ label để không hiển thị tiêu đề dữ liệu
-                        data: counts,
-                        borderColor: "rgba(78, 115, 223, 1)",
-                        backgroundColor: "rgba(78, 115, 223, 0.2)",
-                        borderWidth: 2
+                        label: 'Tổng thu nhập (VNĐ)',  // Tiêu đề của biểu đồ
+                        data: income,  // Dữ liệu thu nhập
+                        borderColor: "rgba(78, 115, 223, 1)",  // Màu đường biên
+                        backgroundColor: "rgba(78, 115, 223, 0.2)",  // Màu nền
+                        borderWidth: 2  // Độ dày của đường biên
                     }]
                 },
                 options: {
-                    responsive: true,
+                    responsive: true,  // Đảm bảo biểu đồ đáp ứng với kích thước màn hình
                     scales: {
-                        x: { grid: { display: false } },
-                        y: { beginAtZero: true }
+                        x: { grid: { display: false } },  // Ẩn lưới trục x
+                        y: { beginAtZero: true }  // Bắt đầu trục y từ 0
                     },
                     plugins: {
-                        // Ẩn legend
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: true },  // Hiển thị tên biểu đồ
                         tooltip: {
                             callbacks: {
-                                // Tùy chỉnh tooltip
-                                label: function(tooltipItem) {
-                                    return 'Số lượng truy cập: ' + tooltipItem.raw; // Thêm "Số lượng truy cập: " trước số liệu
+                                label: function (tooltipItem) {
+                                    return 'Thu nhập: ' + tooltipItem.raw + ' VNĐ';  // Hiển thị thu nhập khi hover
                                 }
                             }
                         }

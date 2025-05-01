@@ -29,7 +29,7 @@ class LoginController extends Controller
         $credentials = $this->credentials($request);
 
         // Kiểm tra tài khoản có bị khóa không
-        $credentials['status'] = 1;
+        $credentials['status'] = 'active';
 
         return $this->guard()->attempt(
             $credentials,

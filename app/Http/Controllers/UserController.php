@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -54,6 +55,9 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+
+        Log::info('Update request received', $request->all());
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,

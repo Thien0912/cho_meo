@@ -29,4 +29,21 @@ class Controller extends BaseController
         // Chia sẻ tổng số coins này với tất cả các view
         view()->share('totalCoins', $totalCoins);
     }
+
+    // Phương thức AJAX để lấy số xu của người dùng
+    public function getUserCoins()
+    {
+        if (Auth::check()) {
+            // Lấy tổng số xu của người dùng
+            $user = Auth::user();
+            $totalCoins = UserCoin::where('user_id', $user->id)->sum('coins_change');
+            return response()->json([
+                'totalCoins' => $totalCoins
+            ]);
+        }
+
+        return response()->json([
+            'error' => 'User not authenticated.'
+        ]);
+    }
 }

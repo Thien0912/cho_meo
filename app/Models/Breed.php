@@ -5,8 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Visitor extends Model
+class Breed extends Model
 {
     use HasFactory;
-    protected $fillable = ['date', 'count', 'identifier'];
+
+    protected $fillable = [
+        'name',
+        'type',
+        'description',
+        'image',
+    ];
 }

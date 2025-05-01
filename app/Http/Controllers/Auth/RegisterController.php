@@ -73,7 +73,7 @@ class RegisterController extends Controller
         // Thêm dữ liệu vào bảng user_coins sau khi user được tạo
         DB::table('user_coins')->insert([
             'user_id' => $user->id,
-            'coins_change' => 100,
+            'coins_change' => 10,
             'created_at' => now(),
             'reason' => 'Tặng người dùng mới'
         ]);

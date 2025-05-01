@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Upload extends Model
+class Like extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'file_path',
-    ];
+    protected $fillable = ['user_id', 'post_id'];
 }

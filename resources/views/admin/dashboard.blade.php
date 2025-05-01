@@ -72,9 +72,43 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.breeds.index') }}">
+                    <i class="fas fa-fw fa-paw"></i>
+                    <span>Thư viện</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.expenses.index') }}" >
                     <i class="fas fa-fw fa-hand-holding-usd"></i>
                     <span>Chi tiêu</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.uploads.index') }}" >
+                    <i class="fas fa-fw fas fa-file"></i>
+                    <span>Mô hình</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.llm.index') }}">
+                    <i class="fas fa-cog"></i>
+                    <span>Cấu hình LLM</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.pages.index') }}">
+                    <i class="fas fa-tools"></i>
+                    <span>Cấu hình web</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.apk.index') }}">
+                    <i class="fas fa-wrench"></i>
+                    <span>Quản lý APK</span>
+                </a>
             </li>
 
         </ul>
@@ -149,8 +183,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Tổng chi tiêu</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_format($totalExpenses)}} VND</div>
+                                                Giao dịch chờ duyệt</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalPendingTransactions}}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i>
@@ -171,7 +205,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Tổng số lượng truy cập</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Tổng thu nhập (7 ngày gần nhất)</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -204,8 +238,15 @@
     @endsection
 
     @push('scripts')
-    <!-- Include Chart.js từ CDN -->
+    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Include file JS đã tách riêng để khởi tạo biểu đồ -->
+
+    <!-- Gán biến VISITOR_URL trước khi load file JS -->
+    <script>
+    // Kiểm tra và gán URL cho biến VISITOR_URL chỉ một lần
+    if (!window.VISITOR_URL) {
+        window.VISITOR_URL = "{{ url('/get-transactions') }}";
+    }
+</script>
     <script src="{{ asset('js/chart-area-demo.js') }}"></script>
-    @endpush
+@endpush
