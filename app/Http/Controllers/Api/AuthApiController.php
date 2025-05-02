@@ -26,7 +26,7 @@ class AuthApiController extends Controller
             return response()->json(['message' => 'Sai thông tin đăng nhập'], 401);
         }
 
-        if ($user->status == 0) {
+        if ($user->status === 'blocked') {
             return response()->json(['message' => 'Tài khoản đã bị khóa'], 403);
         }
 
@@ -64,7 +64,7 @@ class AuthApiController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'status' => 1
+            'status' => 'active'
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -124,7 +124,7 @@ class AuthApiController extends Controller
                 'name' => $payload['name'] ?? 'Người dùng Google',
                 'email' => $email,
                 'password' => bcrypt(uniqid()), // Tạo mật khẩu ngẫu nhiên vì đăng nhập Google không cần mật khẩu
-                'status' => 1
+                'status' => 'active'
             ]);
 
             // Tặng 10 xu cho người dùng mới
@@ -136,7 +136,7 @@ class AuthApiController extends Controller
             ]);
         } else {
             // Kiểm tra trạng thái tài khoản
-            if ($user->status == 0) {
+            if ($user->status === 'blocked') {
                 return response()->json(['message' => 'Tài khoản đã bị khóa'], 403);
             }
         }

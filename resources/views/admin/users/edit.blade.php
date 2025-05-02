@@ -162,8 +162,8 @@
                     <div class="form-group">
                         <label for="status">Trạng thái</label>
                         <select name="status" id="status" class="form-control" required>
-                            <option value="1" {{ $user->status ? 'selected' : '' }}>Active</option>
-                            <option value="0" {{ !$user->status ? 'selected' : '' }}>Blocked</option>
+                            <option value="1" {{ $user->status === 'active' ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ $user->status === 'blocked' ? 'selected' : '' }}>Blocked</option>
                         </select>
                     </div>
 
