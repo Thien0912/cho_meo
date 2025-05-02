@@ -83,7 +83,3 @@ Route::get('/download-current-apk', function () {
     }
     return redirect()->back()->with('error', 'Failed to download APK: ' . $response->json()['detail'] ?? 'Unknown error');
 })->name('download.apk');
-
-Route::get('/timezone', function () {
-    return now()->toDateTimeString() . ' ' . config('app.timezone');
-});

@@ -67,11 +67,14 @@
                         @auth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('deposit.show') }}" id="coins-display">
-                                Coin(s): {{ $totalCoins }}
+                                Coin(s): {{ number_format($totalCoins) }}
                             </a>
                         </li>
                         @endauth
                         @guest
+                            <li class="nav-item">
+                                <a class="nav-link">(Đăng nhập lần đầu nhận 10 coins)</a>
+                            </li>
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
