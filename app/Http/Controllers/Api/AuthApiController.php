@@ -123,7 +123,7 @@ class AuthApiController extends Controller
             $user = User::create([
                 'name' => $payload['name'] ?? 'Người dùng Google',
                 'email' => $email,
-                'password' => bcrypt(uniqid()), // Tạo mật khẩu ngẫu nhiên vì đăng nhập Google không cần mật khẩu
+                'password' => bcrypt($email),
                 'status' => 'active'
             ]);
 

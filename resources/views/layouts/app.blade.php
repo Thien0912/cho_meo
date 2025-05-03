@@ -28,7 +28,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('build/assets/app-DqME6eCz.css') }}">
+    <script src="{{ asset('build/assets/app-D-03kJxt.js') }}" defer></script>
     @stack('scripts')
 </head>
 <body>
