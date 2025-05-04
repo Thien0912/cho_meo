@@ -9,7 +9,6 @@
         $page = \App\Models\Page::first();
         $faviconPath = $page->favicon ?? 'assets/grinning_2171967.png';
         $faviconUrl = file_exists(public_path($faviconPath)) ? asset($faviconPath) : asset('assets/grinning_2171967.png');
-        // Debug đường dẫn favicon
         \Illuminate\Support\Facades\Log::debug('Favicon path used: ' . $faviconPath);
         \Illuminate\Support\Facades\Log::debug('Favicon URL used: ' . $faviconUrl);
     @endphp
@@ -18,7 +17,18 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ \App\Models\Page::first()->title }}</title>
+    <title>{{ $page->title }}</title>
+
+    <!-- Meta SEO -->
+    @if (Request::segment(1) == '')
+        <meta name="description" content="{{ $page->description ?? 'Chào mừng đến với trang web của chúng tôi!' }}@yield('description')">
+        <meta property="og:description" content="{{ $page->description ?? 'Chào mừng đến với trang web của chúng tôi!' }}@yield('description')">
+        <meta name="twitter:description" content="{{ $page->description ?? 'Chào mừng đến với trang web của chúng tôi!' }}@yield('description')">
+    @else
+        <meta name="description" content="@yield('description')">
+        <meta property="og:description" content="@yield('description')">
+        <meta name="twitter:description" content="@yield('description')">
+    @endif
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -52,7 +62,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('download.apk') }}">Tải APK</a>
                         </li>
-                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->

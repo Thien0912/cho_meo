@@ -192,7 +192,7 @@
     <!-- End Wrapper -->
 
     <script>
-        const API_URL = "{{ env('UPLOAD_API_URL', 'http://localhost:55010/upload-file') }}";
+        const API_URL = "{{ env('UPLOAD_API_URL', 'http://api.chm.adhigtechn.com/upload-file') }}";
         const API_KEY = "{{ env('UPLOAD_API_KEY', 'iAtteKj8TSqUK4kdrHHC2QlIldEdfMjk') }}";
 
         // Hiển thị mô hình hiện tại

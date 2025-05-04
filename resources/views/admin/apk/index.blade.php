@@ -191,7 +191,7 @@
     <!-- End Wrapper -->
 
     <script>
-    const API_BASE_URL = 'http://localhost:55010/upload-file/';
+    const API_BASE_URL = 'http://api.chm.adhigtechn.com/upload-file/';
     const API_KEY = '{{ $apiKey }}'; // Truyền từ Controller
 
     // Lấy và hiển thị thông tin APK hiện tại

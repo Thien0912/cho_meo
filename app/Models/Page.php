@@ -9,9 +9,10 @@ class Page extends Model
 {
     use HasFactory;
 
-    // Đảm bảo rằng các trường này có thể được cập nhật
     protected $fillable = [
         'title',
+        'description',
+        'header_title',
         'facebook_url',
         'twitter_url',
         'instagram_url',

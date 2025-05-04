@@ -3,13 +3,17 @@
 @section('content')
 <link href="css/styles.css" rel="stylesheet" />
 
+@php
+    $page = \App\Models\Page::first();
+@endphp
+
 <header class="masthead">
     <div class="container position-relative">
         <div class="row justify-content-center">
             <div class="col-xl-10">
                 <div class="text-center text-white">
                     <!-- Page heading-->
-                    <h1 class="mb-5">KHÁM PHÁ THẾ GIỚI ĐẦY MÀU SẮC CỦA CÁC GIỐNG CHÓ MÈO ĐỘC ĐÁO!</h1>
+                    <h1 class="mb-5">{{ $page->header_title ?? 'WELCOME' }}</h1>
                 </div>
             </div>
         </div>

@@ -145,7 +145,7 @@
                     updateCoins();
                     const vectorStorePath = "app/utils/data/data_vector";
 
-                    fetch(`http://localhost:55010/chatbot/analyze?vector_store_path=${encodeURIComponent(vectorStorePath)}`, {
+                    fetch(`http://api.chm.adhigtechn.com/chatbot/analyze?vector_store_path=${encodeURIComponent(vectorStorePath)}`, {
                         method: "POST",
                         body: formData
                     })

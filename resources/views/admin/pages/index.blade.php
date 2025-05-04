@@ -129,6 +129,18 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="description" class="form-label">Mô tả SEO trang chủ</label>
+                            <textarea class="form-control" id="description" name="description" rows="4">{{ old('description', $page->description) }}</textarea>
+                            <small class="form-text text-muted">Mô tả nên dưới 160 ký tự để tối ưu SEO.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="header_title" class="form-label">Tiêu đề trang chủ</label>
+                            <textarea class="form-control" id="header_title" name="header_title" rows="4">{{ old('header_title', $page->header_title) }}</textarea>
+                            <small class="form-text text-muted">Tiêu đề hiển thị ở đầu trang chủ.</small>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="favicon" class="form-label">Favicon (Hình ảnh: .png, .jpg, .jpeg,...)</label>
                             <input type="file" class="form-control" id="favicon" name="favicon" accept="image/png,image/jpeg,image/jpg">
                             @error('favicon')
@@ -172,7 +184,7 @@
                             <input type="url" class="form-control" id="privacy_url" name="privacy_url" value="{{ old('privacy_url', $page->privacy_url) }}">
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Cập nhật tiêu đề và liên kết</button>
+                        <button type="submit" class="btn btn-primary">Cập nhật cấu hình</button>
                     </form>
                     <br>
                 </div>
@@ -198,7 +210,7 @@
 
             const confirmed = await Swal.fire({
                 title: 'Xác nhận cập nhật',
-                text: 'Bạn có chắc chắn muốn cập nhật tiêu đề và các liên kết này?',
+                text: 'Bạn có chắc chắn muốn cập nhật cấu hình này?',
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Cập nhật',

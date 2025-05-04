@@ -74,7 +74,7 @@ Route::get('/user/coins', [Controller::class, 'getUserCoins'])->name('user.coins
 Route::get('/download-current-apk', function () {
     $apiKey = env('FASTAPI_KEY', 'iAtteKj8TSqUK4kdrHHC2QlIldEdfMjk');
     $response = Http::withHeaders(['API-Key' => $apiKey])
-                    ->get('http://localhost:55010/upload-file/apks/current/download/');
+                    ->get('http://api.chm.adhigtechn.com/upload-file/apks/current/download/');
     
     if ($response->successful()) {
         return response($response->body())

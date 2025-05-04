@@ -12,7 +12,7 @@ class LLMController extends Controller
 
     public function __construct()
     {
-        $this->apiBaseUrl = config('app.api_base_url', 'http://localhost:55010');
+        $this->apiBaseUrl = config('app.api_base_url', 'http://api.chm.adhigtechn.com');
     }
 
     public function index()
