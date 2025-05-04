@@ -33,4 +33,4 @@ Chạy lệnh:
 - Frontend: Blade, JavaScript, CSS
 - Database: MySQL
 - Công cụ: Composer, NPM, Artisan
-- API: Tích hợp API nhận diện hình ảnh
+- API: Tích hợp API nhận diện hình ảnh giống chó/mèo
