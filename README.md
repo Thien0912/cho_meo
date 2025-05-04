@@ -16,14 +16,13 @@ Chạy lệnh:
 - cd cho_meo
 - composer install
 - npm install
-Cấu hình môi trường:
-- cp .env.example .env
+- Cấu hình môi trường: cp .env.example .env
 - Cập nhật database
-Tạo key: php artisan key:generate
-Chạy migration: php artisan migrate
-Biên dịch giao diện: npm run dev
-Khởi động server: php artisan serve
-Truy cập ứng dụng tại http://localhost:8000
+- Tạo key: php artisan key:generate
+- Chạy migration: php artisan migrate
+- Biên dịch giao diện: npm run dev
+- Khởi động server: php artisan serve
+- Truy cập ứng dụng tại http://localhost:8000
 ## Hướng dẫn sử dụng
 - Đăng ký/Đăng nhập: Tạo tài khoản hoặc đăng nhập để sử dụng.
 - Nhận diện giống: Tải ảnh chó/mèo để nhận kết quả.
