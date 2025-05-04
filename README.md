@@ -4,7 +4,7 @@ Trang web hỗ trợ người yêu thú cưng nhận diện giống chó/mèo, x
 - Nhận diện giống chó/mèo thông qua hình ảnh.
 - Cung cấp thông tin chăm sóc thú cưng qua giao diện thân thiện.
 - Quản lý tài khoản người dùng (đăng ký, đăng nhập, cập nhật hồ sơ).
-Dự án được xây dựng để kết nối cộng đồng yêu thú cưng và cung cấp các công cụ hữu ích.
+- Dự án được xây dựng để kết nối cộng đồng yêu thú cưng và cung cấp các công cụ hữu ích.
 ## Yêu cầu
 - PHP >= 8.0
 - Composer
