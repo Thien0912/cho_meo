@@ -12,8 +12,8 @@ Dự án được xây dựng để kết nối cộng đồng yêu thú cưng v
 - Node.js và NPM (cho giao diện)
 ## Cài đặt
 Clone repository:
-- git clone https://github.com/Thien0912/cho_meo.git
-- cd cho_meo
+- git clone https://github.com/Thien0912/cho_meo.git.
+- cd cho_meo.
 Cài đặt phụ thuộc:
 - composer install
 - npm install
