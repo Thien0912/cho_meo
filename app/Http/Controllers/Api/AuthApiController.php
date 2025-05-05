@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Google_Client; // Thêm Google_Client để xác thực token
 
 class AuthApiController extends Controller
@@ -180,16 +182,16 @@ class AuthApiController extends Controller
 
     public function getUser(Request $request, $id)
     {
-        // Kiểm tra người dùng đã đăng nhập và có quyền truy cập
+        Log::info("getUser called with ID: $id, Auth ID: " . Auth::id());
         if (Auth::id() != $id) {
+            Log::warning("Unauthorized access: Auth ID " . Auth::id() . " does not match requested ID $id");
             return response()->json(['message' => 'Không có quyền truy cập'], 403);
         }
-
         $user = User::find($id);
         if (!$user) {
+            Log::warning("User not found: ID $id");
             return response()->json(['message' => 'Người dùng không tồn tại'], 404);
         }
-
         return response()->json([
             'message' => 'Lấy thông tin người dùng thành công',
             'user' => [
